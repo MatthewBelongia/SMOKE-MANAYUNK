@@ -1,18 +1,16 @@
 <ion-view view-title="Open Tabs">
-  <ion-content ng-controller="OpenTabCtrl">
+  <ion-content class=body >
     <div class="item item-input-inset">
-      <label class="item-input-wrapper">
-        <input type="text" ng-model="openTab.name">
-      </label>
-      <button class="button button-balanced ion-plus button-small" ng-click="add()">
-        Add
+      <button class="button button-balanced ion-plus button-block" ng-click="showPopup()">
+        Open New Tab
       </button>
     </div>
     <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right"
-      ng-repeat="openTab in openTabs" type="item-text-wrap"
-      href="#/tab/opentabs/{{openTab.id}}">
+      <ion-item class="item-remove-animate item-avatar item-icon-right " ng-repeat="openTab in openTabs" type="item-text-wrap" href="#/tab/opentabs/{{openTab.id}}">
         <h2>{{openTab.name}}</h2>
+        <p>Opened
+          <span am-time-ago="openTab.time"></span>
+        </p>
         <i class="icon ion-chevron-right icon-accessory"></i>
         <ion-option-button class="button-assertive" ng-click="remove(openTab)">
           Void

@@ -1,17 +1,38 @@
-<ion-view ng-controller="BillCtrl" view-title="{{openTab.name}}'s Bill">
-  <ion-content class="padding">
+<ion-view view-title="{{openTab.name}}'s Bill">
+  <ion-content class="has-footer">
     <div class="item item-input-inset">
       <label class="item-input-wrapper">
-        <input type="text" ng-model="itemSearch">
+        <input type="text" ng-model="item.id">
       </label>
-      <button class="button button-balanced ion-plus button-small" ng-click="add()">
-        Add
+      <button class="button button-balanced ion-plus button-small" ng-click="addItem()">
+        Add Item
       </button>
     </div>
     <ion-list>
-      <ion-item ng-repeat="item in inventory">
-        <h2>{{item.name}}</h2>
-        <p>${{item.price}}</p>
+      <ion-item class="item item-divider">
+        <div class="row">
+          <div class="col col-15">Qty:</div>
+          <div class="col col-60">Item Name:</div>
+          <div class="col col-25">Cost:</div>
+        </div>
       </ion-item>
+      <ion-item ng-repeat="item in openTab.bill" ng-click="openPopover($event)">
+        <div class="row">
+          <div class="col col-15">{{item.quantity}}x</div>
+          <div class="col col-60">{{item.name}}</div>
+          <div class="col col-25">${{item.price*item.quantity}}</div>
+        </div>
+      </ion-item>
+    </ion-list>
   </ion-content>
+  <ion-footer-bar class="item item-divider" style="position: fixed">
+    <ion-grid>
+      <ion-row>
+        <ion-col width-30 offset-15>Subtotal:</ion-col>
+        <ion-col width-30 offset-15>
+          <span id="currency-default">{{openTab.subtotal | currency}}</span>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-footer-bar>
 </ion-view>

@@ -1,5 +1,5 @@
 
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','angularMoment'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -31,12 +31,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
   // Each tab has its own nav history stack:
 
-  .state('tab.dash', {
-    url: '/dash',
+  .state('tab.inventory', {
+    url: '/inventory',
     views: {
-      'tab-dash': {
-        templateUrl: 'templates/tab-dash.html',
-        controller: 'DashCtrl'
+      'tab-inventory': {
+        templateUrl: '/templates/tab-inventory.html',
+        controller: 'InventoryCtrl'
       }
     }
   })
@@ -55,7 +55,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       views: {
         'tab-opentabs': {
           templateUrl: 'templates/opentabs-bill.html',
-          controller: 'OpenTabCtrl'
+          controller: 'BillCtrl'
         }
       }
     })
@@ -64,12 +64,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     url: '/account',
     views: {
       'tab-account': {
-        templateUrl: 'templates/opentabs-bill.html',
+        templateUrl: 'templates/tab-account.html',
         controller: 'AccountCtrl'
       }
     }
   });
 
-  $urlRouterProvider.otherwise('/tab/dash');
+  $urlRouterProvider.otherwise('/tab/inventory');
 
 });
