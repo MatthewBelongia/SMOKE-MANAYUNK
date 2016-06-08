@@ -26,29 +26,16 @@ angular.module('starter.services', [])
 })
 
 .factory('SMoKEAPIservice', function($http) {
-    var SMoKEAPI = {};
-    SMoKEAPI.getItemDetails = function(id) {
+
+
+    getItemDetails = function(id) {
       return $http({
-        method: 'jsonp',
-        url: '192.168.1.189:8080/id?id=54'
+        method: 'GET',
+        url: 'http://192.168.1.189:8080/id?id=' + id
       });
     }
 
-  //   var settings = {
-  //   "async": true,
-  //   "crossDomain": true,
-  //   "url": "http://192.168.1.189:8080/id?id=54",
-  //   "method": "GET",
-  //   "headers": {
-  //     "cache-control": "no-cache",
-  //     "postman-token": "203f1816-6653-b04a-17f2-a67c77de6331"
-  //   }
-  // }
-  //
-  // $.ajax(settings).done(function (response) {
-  //   console.log(response);
-  // });
-    return SMoKEAPI;
-
-
+    return{
+      getItemDetails: getItemDetails, //Comma?
+    }
   });

@@ -2,7 +2,7 @@
   <ion-content class="has-footer">
     <div class="item item-input-inset">
       <label class="item-input-wrapper">
-        <input type="text" ng-model="item.id">
+        <input type="text" ng-model="id">
       </label>
       <button class="button button-balanced ion-plus button-small" ng-click="addItem()">
         Add Item
@@ -18,9 +18,9 @@
       </ion-item>
       <ion-item ng-repeat="item in openTab.bill" ng-click="openPopover($event)">
         <div class="row">
-          <div class="col col-15">{{item.quantity}}x</div>
-          <div class="col col-60">{{item.name}}</div>
-          <div class="col col-25">${{item.price*item.quantity}}</div>
+          <div class="col col-15">{{item.data.inventorylevel}}x</div>
+          <div class="col col-60">{{item.data.name}}</div>
+          <div class="col col-25">${{item.data.cost*item.data.inventorylevel}}</div>
         </div>
       </ion-item>
     </ion-list>

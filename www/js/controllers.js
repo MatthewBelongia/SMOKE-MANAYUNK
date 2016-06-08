@@ -1,9 +1,10 @@
 angular.module('starter.controllers', [])
 
-
-
 .controller('InventoryCtrl', function($scope, $stateParams, OpenTabsFactory, $http, SMoKEAPIservice) {
-
+  $scope.inventory = [];
+  $http.get('/inventory.json').then(function(response) {
+    $scope.inventory = response.data;
+  });
   // $scope.id = $stateParams.id;
   //   $scope.items = [];
   //   $scope.item = null;
@@ -12,11 +13,10 @@ angular.module('starter.controllers', [])
   //       $scope.item = response.data;
   //       console.log("other test");
   //   });
-
 })
 
-.controller('OpenTabCtrl', function($scope, OpenTabsFactory, $ionicPopup, $http) {
 
+.controller('OpenTabCtrl', function($scope, OpenTabsFactory, $ionicPopup, $http, $ionicModal) {
   var openTabID = 0;
   $scope.openTab = {
     id: openTabID,
@@ -56,59 +56,38 @@ angular.module('starter.controllers', [])
       }]
     });
 
+    $ionicModal.fromTemplateUrl('templates/closetabmodal.html', {
+      scope: $scope
+    }).then(function(modal) {
+      $scope.modal = modal;
+    });
+
+  };
+  $scope.openModal = function() {
+    $scope.modal.show();
+  };
+  $scope.closeModal = function() {
+    $scope.modal.hide();
   };
   $scope.remove = function(openTab) {
     OpenTabsFactory.remove(openTab);
-    console.log(ingredients);
   };
+  $scope.openView = function() {
+    $state.go('app.browse');
+  };
+
 })
 
-.controller('BillCtrl', function($scope, $stateParams, OpenTabsFactory, $ionicPopover, $http, SMoKEAPIservice) {
-  $scope.openTab = OpenTabsFactory.get($stateParams.tabID);
 
-  //
-  //
-  // $scope.id = $stateParams.id;
-  //   $scope.items = [];
-  //   $scope.item = null;
-  //   console.log("test" + $scope.id);
-  //   SMoKEAPIservice.getItemDetails($scope.id).success(function (response) {
-  //       $scope.item = response;
-  //   });
-  //
-
-  $scope.item = {
-    id: '',
-    name: 'Cigar',
-    price: 5.25,
-    quantity: '1'
-  };
-
-
-
-  $scope.addItem = function() {
-    $scope.openTab.subtotal+=$scope.item.price;
-    $scope.openTab.bill.push($scope.item);
-    $scope.item = {
-      id: '',
-      name: 'Cigar',
-      price: 5.25,
-      quantity: '1'
-    };
-  };
-
-  $ionicPopover.fromTemplateUrl('templates/popover.html', {
-    scope: $scope
-  }).then(function(popover) {
-    $scope.popover = popover;
-  });
-  $scope.openPopover = function($event) {
-    $scope.popover.show($event);
-  };
+.controller('SpecialsCtrl', function($scope) {
+  $scope.specials = [{
+    title: 'Happy hour',
+    amount: 25
+  }, {
+    title: 'Discount on Domestic',
+    amount: 10
+  }, {
+    title: 'Discount on Imports',
+    amount: 5
+  }];
 })
-
-.controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
-});
